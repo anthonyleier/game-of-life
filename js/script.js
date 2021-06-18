@@ -1,17 +1,37 @@
 const universalWidth = window.innerWidth;
 const universalHeight = window.innerHeight;
+const canvas = document.querySelector('canvas');
 
 function draw() {
+	mouseObserver();
+
 	canvas.width = universalWidth;
 	canvas.height = universalHeight;
-	if (canvas.getContext) {
-		pixel(universalWidth / 2, universalHeight / 2, 10, '#003A00');
-	}
 }
 
-function pixel(x, y, size, color) {
-	let canvas = document.getElementById('canvas');
+function pixel(x, y) {
 	let paint = canvas.getContext('2d');
-	paint.fillStyle = color;
-	paint.fillRect(x, y, size, size);
+	paint.fillStyle = '#000';
+	paint.fillRect(x, y, 10, 10);
+}
+
+function mouseObserver() {
+	canvas.addEventListener('mousedown', function (e) {
+		getCursorPosition(canvas, e);
+	});
+}
+
+function getCursorPosition(canvas, event) {
+	const rect = canvas.getBoundingClientRect();
+	const x = event.clientX - rect.left;
+	const y = event.clientY - rect.top;
+	change(x, y);
+}
+
+function change(x, y) {
+	console.log('antes:', x, y);
+	x = Math.round(x / 10) * 10;
+	y = Math.round(y / 10) * 10;
+	console.log('depois:', x, y);
+	pixel(x, y);
 }
