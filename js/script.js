@@ -1,12 +1,29 @@
-const universalWidth = window.innerWidth;
-const universalHeight = window.innerHeight;
+const largura = window.innerWidth;
+const altura = window.innerHeight;
 const canvas = document.querySelector('canvas');
+const pixelTamanho = 10;
+const pixelsLargura = largura / pixelTamanho;
+const pixelsAltura = altura / pixelTamanho;
+
+function start() {
+	atualizarFrame();
+}
+
+function atualizarFrame() {
+	for (i = 0; i < pixelsLargura; i++) {
+		pixel(i, 0);
+		console.log(i, 50);
+	}
+}
 
 function draw() {
 	mouseObserver();
-
-	canvas.width = universalWidth;
-	canvas.height = universalHeight;
+	start();
+	let paint = canvas.getContext('2d');
+	paint.fillStyle = '#000';
+	paint.fillRect(0, 0, 10, 10);
+	canvas.width = largura;
+	canvas.height = altura;
 }
 
 function pixel(x, y) {
@@ -29,9 +46,13 @@ function getCursorPosition(canvas, event) {
 }
 
 function change(x, y) {
-	console.log('antes:', x, y);
 	x = Math.round(x / 10) * 10;
 	y = Math.round(y / 10) * 10;
-	console.log('depois:', x, y);
 	pixel(x, y);
 }
+
+// Render != Info
+// Usar exemplo do deschamps
+// Primeiro altera um array
+// Depois atualiza tudo
+// Aumentar tamanho dos pixels
