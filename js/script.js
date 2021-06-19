@@ -1,58 +1,48 @@
-const largura = window.innerWidth;
-const altura = window.innerHeight;
 const canvas = document.querySelector('canvas');
-const pixelTamanho = 10;
-const pixelsLargura = largura / pixelTamanho;
-const pixelsAltura = altura / pixelTamanho;
+const context = canvas.getContext('2d');
+
+const largura = window.innerWidth;
+const altura = window.innerHeight - 1;
+
+const qtdPixelLargura = 20;
+const qtdPixelAltura = 20;
+
+const pixelLargura = largura / qtdPixelLargura;
+const pixelAltura = altura / qtdPixelAltura;
+
+const matrizLargura = largura / pixelLargura;
+const matrizAltura = altura / pixelAltura;
 
 function start() {
-	atualizarFrame();
+	let matriz = estrutura();
+	atualizarFrame(matriz);
 }
 
-function atualizarFrame() {
-	for (i = 0; i < pixelsLargura; i++) {
-		pixel(i, 0);
-		console.log(i, 50);
+function estrutura() {
+	canvas.width = largura;
+	canvas.height = altura;
+
+	let vetor = [
+		[0, 0, 0, 0],
+		[0, 0, 0, 0],
+	];
+
+	return vetor;
+}
+
+function atualizarFrame(matriz) {
+	x = 0;
+	y = 0;
+	for (i = 0; i < qtdPixelAltura; i++) {
+		for (j = 0; j < qtdPixelLargura; j++) {
+			context.fillStyle = '#000';
+			context.strokeRect(x, y, pixelLargura, pixelAltura);
+			console.log('Cubo - Número:', j, 'X:', x, 'Y:', y, 'Largura:', pixelLargura, 'Altura:', pixelAltura);
+			x += pixelLargura;
+		}
+		y += pixelAltura;
+		x = 0;
 	}
 }
 
-function draw() {
-	mouseObserver();
-	start();
-	let paint = canvas.getContext('2d');
-	paint.fillStyle = '#000';
-	paint.fillRect(0, 0, 10, 10);
-	canvas.width = largura;
-	canvas.height = altura;
-}
-
-function pixel(x, y) {
-	let paint = canvas.getContext('2d');
-	paint.fillStyle = '#000';
-	paint.fillRect(x, y, 10, 10);
-}
-
-function mouseObserver() {
-	canvas.addEventListener('mousedown', function (e) {
-		getCursorPosition(canvas, e);
-	});
-}
-
-function getCursorPosition(canvas, event) {
-	const rect = canvas.getBoundingClientRect();
-	const x = event.clientX - rect.left;
-	const y = event.clientY - rect.top;
-	change(x, y);
-}
-
-function change(x, y) {
-	x = Math.round(x / 10) * 10;
-	y = Math.round(y / 10) * 10;
-	pixel(x, y);
-}
-
-// Render != Info
-// Usar exemplo do deschamps
-// Primeiro altera um array
-// Depois atualiza tudo
-// Aumentar tamanho dos pixels
+start();
