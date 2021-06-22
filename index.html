@@ -5,7 +5,19 @@
 		<link rel="stylesheet" href="css/styles.css" />
 	</head>
 	<body>
-		<canvas id="canvas"></canvas>
+		<!-- // Qualquer célula viva com menos de dois vizinhos vivos morre de solidão.
+		// Qualquer célula viva com mais de três vizinhos vivos morre de superpopulação.
+		// Qualquer célula com exatamente três vizinhos vivos se torna uma célula viva.
+		// Qualquer célula com dois vizinhos vivos continua no mesmo estado para a próxima geração. -->
+		<div class="conteudo">
+			<canvas id="canvas"></canvas>
+			<div class="botoes">
+				<button onclick="passo()">Próximo Passo</button>
+				<button onclick="exemploCruz()">Exemplo Cruz</button>
+				<button onclick="play()">Play</button>
+				<button onclick="stop()">Stop</button>
+			</div>
+		</div>
 		<script src="js/scripts.js"></script>
 	</body>
 </html>

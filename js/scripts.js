@@ -3,7 +3,9 @@ const context = canvas.getContext('2d');
 
 const largura = 400;
 const altura = 400;
-const tamanho = 10;
+
+const corVivo = '#2C8F41';
+const corMorto = '#90D272';
 
 let matriz;
 let linhas;
@@ -18,7 +20,9 @@ function config() {
 	linhas = altura / densidade;
 
 	matriz = criaMatriz(linhas, colunas);
+}
 
+function aleatorio() {
 	for (i = 0; i < colunas; i++) {
 		for (j = 0; j < linhas; j++) {
 			matriz[i][j] = Math.floor(random(0, 2));
@@ -34,66 +38,53 @@ function criaMatriz(colunas, linhas) {
 	return vetor;
 }
 
-function frame() {
-	console.log('Desenhando...');
+function desenhar() {
+	console.log('Desenhando frame...');
 	for (i = 0; i < colunas; i++) {
 		for (j = 0; j < linhas; j++) {
 			let x = i * densidade;
 			let y = j * densidade;
 
-			context.fillStyle = 'red';
+			context.fillStyle = corMorto;
 			if (matriz[i][j] == 1) {
-				context.fillStyle = 'blue';
+				context.fillStyle = corVivo;
 			}
-
 			context.fillRect(x, y, densidade, densidade);
 		}
 	}
-	console.table(matriz);
 }
 
-// Qualquer célula viva com menos de dois vizinhos vivos morre de solidão.
-// Qualquer célula viva com mais de três vizinhos vivos morre de superpopulação.
-// Qualquer célula com exatamente três vizinhos vivos se torna uma célula viva.
-// Qualquer célula com dois vizinhos vivos continua no mesmo estado para a próxima geração.
-
-function update() {
-	console.log('Realizando Update...');
+function atualizar() {
+	console.log('Realizando update...');
 	let atualizacao = criaMatriz(linhas, colunas);
 	for (i = 1; i < colunas - 1; i++) {
 		for (j = 1; j < linhas - 1; j++) {
 			if (matriz[i][j] == 1) {
-				console.log('Célula viva no', i, j);
 				// Se estiver viva
+				console.log('Célula viva no x:', i, 'y:', j);
 				let vizinhos = 0;
 
 				if (matriz[i - 1][j - 1] == 1) vizinhos += 1;
-
 				if (matriz[i - 1][j] == 1) vizinhos += 1;
-
 				if (matriz[i - 1][j + 1] == 1) vizinhos += 1;
-
 				if (matriz[i][j - 1] == 1) vizinhos += 1;
-
 				if (matriz[i][j + 1] == 1) vizinhos += 1;
-
 				if (matriz[i + 1][j - 1] == 1) vizinhos += 1;
-
 				if (matriz[i + 1][j] == 1) vizinhos += 1;
-
 				if (matriz[i + 1][j + 1] == 1) vizinhos += 1;
-				console.log('com', vizinhos);
+
+				console.log('com', vizinhos, 'vizinhos');
 				if (vizinhos < 2) {
 					// Morre de solidão
-					// console.log('Morreu de solidão com', vizinhos, 'no', i, j);
+					console.log('Morreu de solidão com', vizinhos, 'vizinhos, no x:', i, 'y:', j);
 					atualizacao[i][j] = 0;
 				} else if (vizinhos > 3) {
 					// Morre de superpopulação
-					// console.log('Morreu de superpopulação com', vizinhos, 'no', i, j);
+					console.log('Morreu de superpopulação com', vizinhos, 'vizinhos, no x:', i, 'y:', j);
 
 					atualizacao[i][j] = 0;
 				} else {
-					// console.log('Continuou viva com', vizinhos, 'no', i, j);
+					// console.log('Continuou viva com', vizinhos, 'vizinhos, no x:', i, 'y:', j);
 					atualizacao[i][j] = 1;
 				}
 			} else {
@@ -101,24 +92,17 @@ function update() {
 				let vizinhos = 0;
 
 				if (matriz[i - 1][j - 1] == 1) vizinhos += 1;
-
 				if (matriz[i - 1][j] == 1) vizinhos += 1;
-
 				if (matriz[i - 1][j + 1] == 1) vizinhos += 1;
-
 				if (matriz[i][j - 1] == 1) vizinhos += 1;
-
 				if (matriz[i][j + 1] == 1) vizinhos += 1;
-
 				if (matriz[i + 1][j - 1] == 1) vizinhos += 1;
-
 				if (matriz[i + 1][j] == 1) vizinhos += 1;
-
 				if (matriz[i + 1][j + 1] == 1) vizinhos += 1;
 
 				if (vizinhos == 3) {
 					// Nasce
-					console.log('Nasceu nova célula no', i, j);
+					console.log('Nasceu nova célula no x:', i, 'y:', j);
 					atualizacao[i][j] = 1;
 				} else {
 					// Nada acontece
@@ -137,15 +121,16 @@ function random(min, max) {
 	return Math.floor(Math.random() * (max - min)) + min;
 }
 
-function cruz() {
-	console.log('Desenhando a forma...');
-
-	// Limpando a tabela
+function limpar() {
 	for (i = 0; i < colunas; i++) {
 		for (j = 0; j < linhas; j++) {
 			matriz[i][j] = 0;
 		}
 	}
+}
+
+function cruz() {
+	console.log('Preparando a cruz...');
 
 	// Desenhando a cruz
 	matriz[9][10] = 1;
@@ -155,13 +140,44 @@ function cruz() {
 	matriz[11][10] = 1;
 }
 
+function passo() {
+	atualizar();
+	desenhar();
+}
+
+function exemploCruz() {
+	limpar();
+	cruz();
+	desenhar();
+}
+
+function play() {
+	continuar = true;
+	repetir(passo, 500);
+}
+
+let continuar = true;
+
+function repetir(callback, interval) {
+	let repeatTimes = 0;
+	let repeated = 1;
+	const intervalTask = setInterval(doTask, interval);
+
+	function doTask() {
+		if (repeated > repeatTimes && continuar) {
+			callback();
+			repeated += 1;
+		} else {
+			clearInterval(intervalTask);
+		}
+	}
+}
+
+function stop() {
+	continuar = false;
+}
+
 config();
-frame();
-
+limpar();
 cruz();
-frame();
-
-setTimeout(() => {
-	update();
-	frame();
-}, 5000);
+desenhar();

@@ -12,3 +12,14 @@ body {
 canvas {
 	background-color: grey;
 }
+
+.conteudo {
+	display: flex;
+	flex-direction: column;
+}
+
+.botoes {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
