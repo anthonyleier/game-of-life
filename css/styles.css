@@ -7,13 +7,14 @@ body {
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
+	background-color: #dfffd1;
 }
 
 canvas {
 	background-color: grey;
 }
 
-.conteudo {
+main {
 	display: flex;
 	flex-direction: column;
 }
@@ -22,4 +23,18 @@ canvas {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+	height: 100%;
+	width: 100%;
+}
+
+.botao {
+	width: 80px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+img {
+	width: 40px;
+	filter: invert(42%) sepia(97%) saturate(370%) hue-rotate(81deg) brightness(87%) contrast(83%);
 }

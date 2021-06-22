@@ -1,8 +1,8 @@
 const canvas = document.querySelector('canvas');
 const context = canvas.getContext('2d');
 
-const largura = 400;
-const altura = 400;
+const largura = 800;
+const altura = 800;
 
 const corVivo = '#2C8F41';
 const corMorto = '#90D272';
@@ -165,6 +165,13 @@ function exemploCruz() {
 function exemploGlider() {
 	limpar();
 	glider();
+	desenhar();
+}
+
+function reset() {
+	continuar = false;
+	limpar();
+	cruz();
 	desenhar();
 }
 

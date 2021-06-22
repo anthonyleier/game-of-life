@@ -3,22 +3,19 @@
 		<title>Game of Life</title>
 		<link rel="stylesheet" href="css/reset.css" />
 		<link rel="stylesheet" href="css/styles.css" />
+		<link rel="shortcut icon" href="img/ellipse.svg" />
 	</head>
 	<body>
-		<!-- // Qualquer célula viva com menos de dois vizinhos vivos morre de solidão.
-		// Qualquer célula viva com mais de três vizinhos vivos morre de superpopulação.
-		// Qualquer célula com exatamente três vizinhos vivos se torna uma célula viva.
-		// Qualquer célula com dois vizinhos vivos continua no mesmo estado para a próxima geração. -->
-		<div class="conteudo">
+		<main>
 			<canvas id="canvas"></canvas>
 			<div class="botoes">
-				<button onclick="passo()">Próximo Passo</button>
-				<button onclick="exemploCruz()">Exemplo Cruz</button>
-				<button onclick="exemploGlider()">Exemplo Glider</button>
-				<button onclick="play()">Play</button>
-				<button onclick="stop()">Stop</button>
+				<div class="botao"><img src="./img/play-skip-forward.svg" onclick="passo()" /></div>
+				<div class="botao"><img src="./img/stop.svg" onclick="reset()" /></div>
+				<div class="botao"><img src="./img/play.svg" onclick="play()" /></div>
+				<div class="botao"><img src="./img/pause.svg" onclick="stop()" /></div>
+				<div class="botao"><img src="./img/add-circle.svg" onclick="exemploGlider()" /></div>
 			</div>
-		</div>
+		</main>
 		<script src="js/scripts.js"></script>
 	</body>
 </html>
