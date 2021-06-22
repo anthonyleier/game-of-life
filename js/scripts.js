@@ -140,6 +140,17 @@ function cruz() {
 	matriz[11][10] = 1;
 }
 
+function glider() {
+	console.log('Preparando o glider...');
+
+	// Desenhando o glider
+	matriz[10][10] = 1;
+	matriz[10][9] = 1;
+	matriz[10][8] = 1;
+	matriz[9][10] = 1;
+	matriz[8][9] = 1;
+}
+
 function passo() {
 	atualizar();
 	desenhar();
@@ -148,6 +159,12 @@ function passo() {
 function exemploCruz() {
 	limpar();
 	cruz();
+	desenhar();
+}
+
+function exemploGlider() {
+	limpar();
+	glider();
 	desenhar();
 }
 
