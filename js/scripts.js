@@ -10,8 +10,9 @@ const corMorto = '#90D272';
 let matriz;
 let linhas;
 let colunas;
-const densidade = 20;
+let densidade = 10;
 let continuar = true;
+let velocidade = 500;
 
 function config() {
 	canvas.width = largura;
@@ -177,11 +178,16 @@ function reset() {
 
 function iniciar() {
 	continuar = true;
-	repetir(passo, 500);
+	repetir(passo, velocidade);
 }
 
 function parar() {
 	continuar = false;
+}
+
+function input() {
+	continuar = false;
+	velocidade = 1000 - document.getElementById('velocidade').value;
 }
 
 config();

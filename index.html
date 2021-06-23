@@ -1,21 +1,45 @@
 <html>
 	<head>
 		<title>Game of Life</title>
-		<link rel="stylesheet" href="css/reset.css" />
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+			crossorigin="anonymous"
+		/>
 		<link rel="stylesheet" href="css/styles.css" />
 		<link rel="shortcut icon" href="img/ellipse.svg" />
 	</head>
 	<body>
+		<header>
+			<h4>Game of Life - John Conway's</h4>
+			<ul>
+				<li>Qualquer célula viva com menos de dois vizinhos vivos morre de solidão</li>
+				<li>Qualquer célula viva com mais de três vizinhos vivos morre de superpopulação.</li>
+				<li>Qualquer célula com exatamente três vizinhos vivos se torna uma célula viva.</li>
+				<li>Qualquer célula com dois vizinhos vivos continua no mesmo estado para a próxima geração.</li>
+			</ul>
+		</header>
 		<main>
 			<canvas id="canvas"></canvas>
 			<div class="botoes">
-				<div class="botao"><img src="./img/play-skip-forward.svg" onclick="passo()" /></div>
 				<div class="botao"><img src="./img/stop.svg" onclick="reset()" /></div>
-				<div class="botao"><img src="./img/play.svg" onclick="iniciar()" /></div>
 				<div class="botao"><img src="./img/pause.svg" onclick="parar()" /></div>
-				<div class="botao"><img src="./img/add-circle.svg" onclick="exemploGlider()" /></div>
+				<div class="botao"><img src="./img/play.svg" onclick="iniciar()" /></div>
+				<div class="botao"><img src="./img/play-skip-forward.svg" onclick="passo()" /></div>
 			</div>
 		</main>
+		<footer>
+			<label for="velocidade" class="form-label">Velocidade</label>
+			<input type="range" class="form-range" min="10" max="1000" id="velocidade" value="500" />
+
+			<button type="button" class="btn btn-success" onclick="input()">Aplicar</button>
+		</footer>
 		<script src="js/scripts.js"></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+			crossorigin="anonymous"
+		></script>
 	</body>
 </html>
