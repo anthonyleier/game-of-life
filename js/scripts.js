@@ -11,6 +11,7 @@ let matriz;
 let linhas;
 let colunas;
 const densidade = 20;
+let continuar = true;
 
 function config() {
 	canvas.width = largura;
@@ -129,59 +130,6 @@ function limpar() {
 	}
 }
 
-function cruz() {
-	console.log('Preparando a cruz...');
-
-	// Desenhando a cruz
-	matriz[9][10] = 1;
-	matriz[10][9] = 1;
-	matriz[10][10] = 1;
-	matriz[10][11] = 1;
-	matriz[11][10] = 1;
-}
-
-function glider() {
-	console.log('Preparando o glider...');
-
-	// Desenhando o glider
-	matriz[10][10] = 1;
-	matriz[10][9] = 1;
-	matriz[10][8] = 1;
-	matriz[9][10] = 1;
-	matriz[8][9] = 1;
-}
-
-function passo() {
-	atualizar();
-	desenhar();
-}
-
-function exemploCruz() {
-	limpar();
-	cruz();
-	desenhar();
-}
-
-function exemploGlider() {
-	limpar();
-	glider();
-	desenhar();
-}
-
-function reset() {
-	continuar = false;
-	limpar();
-	cruz();
-	desenhar();
-}
-
-function play() {
-	continuar = true;
-	repetir(passo, 500);
-}
-
-let continuar = true;
-
 function repetir(callback, interval) {
 	const intervalTask = setInterval(doTask, interval);
 
@@ -194,24 +142,20 @@ function repetir(callback, interval) {
 	}
 }
 
-function stop() {
-	continuar = false;
-}
-
 function mouse() {
 	canvas.addEventListener('mousedown', function (e) {
-		getCursorPosition(canvas, e);
+		click(canvas, e);
 	});
 }
 
-function getCursorPosition(canvas, event) {
+function click(canvas, event) {
 	const rect = canvas.getBoundingClientRect();
 	const x = event.clientX - rect.left;
 	const y = event.clientY - rect.top;
-	novoPixel(x, y);
+	trocarPixel(x, y);
 }
 
-function novoPixel(x, y) {
+function trocarPixel(x, y) {
 	linha = Math.floor(x / densidade);
 	coluna = Math.floor(y / densidade);
 
@@ -221,8 +165,27 @@ function novoPixel(x, y) {
 	desenhar();
 }
 
+function passo() {
+	atualizar();
+	desenhar();
+}
+
+function reset() {
+	continuar = false;
+	limpar();
+	desenhar();
+}
+
+function play() {
+	continuar = true;
+	repetir(passo, 500);
+}
+
+function stop() {
+	continuar = false;
+}
+
 config();
 limpar();
-cruz();
 desenhar();
 mouse();
