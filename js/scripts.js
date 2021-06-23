@@ -183,14 +183,11 @@ function play() {
 let continuar = true;
 
 function repetir(callback, interval) {
-	let repeatTimes = 0;
-	let repeated = 1;
 	const intervalTask = setInterval(doTask, interval);
 
 	function doTask() {
-		if (repeated > repeatTimes && continuar) {
+		if (continuar) {
 			callback();
-			repeated += 1;
 		} else {
 			clearInterval(intervalTask);
 		}
@@ -201,7 +198,31 @@ function stop() {
 	continuar = false;
 }
 
+function mouse() {
+	canvas.addEventListener('mousedown', function (e) {
+		getCursorPosition(canvas, e);
+	});
+}
+
+function getCursorPosition(canvas, event) {
+	const rect = canvas.getBoundingClientRect();
+	const x = event.clientX - rect.left;
+	const y = event.clientY - rect.top;
+	novoPixel(x, y);
+}
+
+function novoPixel(x, y) {
+	linha = Math.floor(x / densidade);
+	coluna = Math.floor(y / densidade);
+
+	if (matriz[linha][coluna] == 0) matriz[linha][coluna] = 1;
+	else matriz[linha][coluna] = 0;
+
+	desenhar();
+}
+
 config();
 limpar();
 cruz();
 desenhar();
+mouse();
