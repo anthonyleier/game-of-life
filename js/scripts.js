@@ -63,16 +63,7 @@ function atualizar() {
 			if (matriz[i][j] == 1) {
 				// Se estiver viva
 				console.log('Célula viva no x:', i, 'y:', j);
-				let vizinhos = 0;
-
-				if (matriz[i - 1][j - 1] == 1) vizinhos += 1;
-				if (matriz[i - 1][j] == 1) vizinhos += 1;
-				if (matriz[i - 1][j + 1] == 1) vizinhos += 1;
-				if (matriz[i][j - 1] == 1) vizinhos += 1;
-				if (matriz[i][j + 1] == 1) vizinhos += 1;
-				if (matriz[i + 1][j - 1] == 1) vizinhos += 1;
-				if (matriz[i + 1][j] == 1) vizinhos += 1;
-				if (matriz[i + 1][j + 1] == 1) vizinhos += 1;
+				let vizinhos = vizinhanca(i, j);
 
 				console.log('com', vizinhos, 'vizinhos');
 				if (vizinhos < 2) {
@@ -90,16 +81,7 @@ function atualizar() {
 				}
 			} else {
 				// Se estiver morta
-				let vizinhos = 0;
-
-				if (matriz[i - 1][j - 1] == 1) vizinhos += 1;
-				if (matriz[i - 1][j] == 1) vizinhos += 1;
-				if (matriz[i - 1][j + 1] == 1) vizinhos += 1;
-				if (matriz[i][j - 1] == 1) vizinhos += 1;
-				if (matriz[i][j + 1] == 1) vizinhos += 1;
-				if (matriz[i + 1][j - 1] == 1) vizinhos += 1;
-				if (matriz[i + 1][j] == 1) vizinhos += 1;
-				if (matriz[i + 1][j + 1] == 1) vizinhos += 1;
+				let vizinhos = vizinhanca(i, j);
 
 				if (vizinhos == 3) {
 					// Nasce
@@ -114,6 +96,23 @@ function atualizar() {
 	}
 
 	matriz = atualizacao;
+}
+
+function vizinhanca(i, j) {
+	let vizinhos = 0;
+	let x = i;
+	let y = j;
+
+	if (x > -1 && y > -1 && matriz[x - 1][y - 1] == 1) vizinhos += 1;
+	if (x > -1 && y > -1 && matriz[x - 1][y] == 1) vizinhos += 1;
+	if (x > -1 && y > -1 && matriz[x - 1][y + 1] == 1) vizinhos += 1;
+	if (x > -1 && y > -1 && matriz[x][y - 1] == 1) vizinhos += 1;
+	if (x > -1 && y > -1 && matriz[x][y + 1] == 1) vizinhos += 1;
+	if (x > -1 && y > -1 && matriz[x + 1][y - 1] == 1) vizinhos += 1;
+	if (x > -1 && y > -1 && matriz[x + 1][y] == 1) vizinhos += 1;
+	if (x > -1 && y > -1 && matriz[x + 1][y + 1] == 1) vizinhos += 1;
+
+	return vizinhos;
 }
 
 function random(min, max) {
@@ -176,12 +175,12 @@ function reset() {
 	desenhar();
 }
 
-function play() {
+function iniciar() {
 	continuar = true;
 	repetir(passo, 500);
 }
 
-function stop() {
+function parar() {
 	continuar = false;
 }
 
